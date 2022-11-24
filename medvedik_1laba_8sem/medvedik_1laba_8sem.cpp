@@ -85,10 +85,11 @@ int main()
 	//{
 	//	fi += f(y) * Tn(i, y);
 	//}
-	for (int i = 0; i < N; i++) {
+	double fii = f(x[0]) * Tn(0, x[0]) / (2 * log(2));
+	for (int i = 1; i < N; i++) {
 
-
-}
-	
+		fii += f(x[i]) * Tn(i, x[i]);
+	}
+	std::cout << fii << std::endl;
 	return 1;
 }
