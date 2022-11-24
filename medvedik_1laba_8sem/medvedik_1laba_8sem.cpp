@@ -85,11 +85,31 @@ int main()
 	//{
 	//	fi += f(y) * Tn(i, y);
 	//}
-	double fii = f(x[0]) * Tn(0, x[0]) / (2 * log(2));
+	double Tipafii[N];
+	for (int i = 0; i < N; i++) {
+		if (i==0)
+		{
+			double o = an(0, x[0]) / 2.0;
+			Tipafii[i] = o * Tn(i, x[i]);
+		}
+		else
+		{
+			Tipafii[i] += an(i, x[i]) * Tn(i, x[i]);
+		}
+		//Tipafii[i] +=  * Tn(0, x[0]);
+	}
+
+
+
+	Tipafii[0] = (an(0, x[0]) * Tn(0, x[0])) / 2.0;
 	for (int i = 1; i < N; i++) {
 
-		fii += f(x[i]) * Tn(i, x[i]);
+		fii[i] = f(x[i]) * Tn(i, x[i]);
+		printf("%.110f\n", fii[i]);
+		std::cout << "\n";
+		printf("%.110f\n", f(x[i]));
+		
 	}
-	std::cout << fii << std::endl;
+	
 	return 1;
 }
