@@ -23,6 +23,34 @@ double Un(int n, double x) {
     return (sin((n + 1) * acos(x)) / sqrt(1 - x * x));
 }
 
+double middlepryam1(double a, double b, double n) {    //4el 4to esli v integrale x dolgen bit strogo zadan a menyatsya tolko n doljno?
+	double nn = 10, h, x, x1;
+	double S = 0.0;
+	h = (b - a) / nn;
+	x = a + (h / 2);
+	//cout<<" x= "<<x<<endl;
+	while (x < b - h / 2.0) {
+		if ((x * x) != 1.0 && (x + h / 2.0) != 1.0) {
+			S += (f(x + (h / 2.0)) * Tn(n, x)) / (sqrt(1 - x * x));
+			//cout << "jopa1 " << f(x + (h / 2.0)) << endl;
+			//cout << "jopa2 " << Tn(n, i) << endl;
+			//cout << "jopa3 " << (sqrt(1 - i * i)) << endl;
+			//cout << "jopaS = " << S << endl;
+		}
+		else
+		{
+
+			S += 0.0;
+			//cout <<"\nJOPA = " << (f(i + (h / 2.0)) * Tn(n, i) / (sqrt(1.0 - ((i * i) + 0.0001)))) << endl;
+			//cout << 1.0 - ((i * i) - 0.0001) << endl;
+		}
+		x += h;
+	}
+	return S * h;
+}
+
+
+
 double Mid(double h1, double x1, double x2, int n) { //perepisat' integral
 	double S = 0.0;
 	h1 = (b - a) / N;
@@ -58,9 +86,9 @@ double Mid2(double h, double x1, double x2, int n) {
 
 
 double an(int n) {
-	//cout << Mid(0.1, -1, 1, n) << endl;
-	return (2.0 / pi) * Mid(0.01, -1, 1, n);
-
+	//cout << middlepryam1(a, b, n) << endl;
+	//return (2.0 / pi) * Mid(0.01, -1, 1, n);
+	return ((2.0 / pi) * middlepryam1(a, b, n));
 
 }
 
@@ -101,11 +129,11 @@ int main()
 	fi[0] = f(0) * Tn(0, x[0]);
 	for (int i = 1; i < N; i++)
 	{
-		fi[i] += f(x[i]) * Tn(i, x[i]);
+		fi[i] = f(x[i]) * Tn(i, x[i]);
 	}
 	double Tipafii[N];
 	for (int i = 0; i < N; i++) {
-		if (i==0)
+		if (i == 0)
 		{
 			double o = an(0) / 2.0;
 			//cout << o << endl;
@@ -115,7 +143,7 @@ int main()
 		else
 		{
 			//cout << "an = " << an(i) << " tn = " << Tn(i, x[i]) << endl;
-			Tipafii[i] += an(i) * Tn(i, x[i]);
+			Tipafii[i] = an(i) * Tn(i, x[i]);
 		}
 		//Tipafii[i] +=  * Tn(0, x[0]);
 	}
